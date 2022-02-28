@@ -1,0 +1,199 @@
+# server info
+server:
+  port: 9000
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    context-path: /ds
+
+#spring
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: sediment
+#  messages:
+#    encoding: UTF-8
+#    basename: i18n/messages
+#    fallback-to-system-locale: true
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 2000MB
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${file.dir},file:${file.preview}
+  cache:
+    type: redis
+  session:
+    store-type: redis
+
+#log
+logging:
+  application: sediment
+  levels: INFO
+  path: ./data/logs
+
+# JWT
+jwt:
+  secret: whataawesomeday
+  #token有效期 半个小时
+  expiration: 1800
+#
+##密码盐值
+pwd-salt: baiguan!
+
+# MyBatis-plus:
+mybatis-plus:
+  mapper-locations: classpath:/mybatis/mapper/**/*.xml
+  global-config:
+    banner: false
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 5
+    #驼峰下划线转换
+    #db-column-underline: true
+    db-config:
+      field-strategy: ignored
+      logic-delete-value: 0 # 逻辑已删除值
+      logic-not-delete-value: 1 # 逻辑未删除值
+  configuration:
+    #配置返回数据库(column下划线命名&&返回java实体是驼峰命名)，自动匹配无需as（没开启这个，SQL需要写as： select user_id as userId）
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+#     打印sql
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+
+#文件预览
+office:
+  home: /opt/openoffice4
+  port: 8100
+file:
+  dir: /data/file/origin${server.servlet.context-path}/
+  preview: /data/file/preview${server.servlet.context-path}/
+converted:
+  file:
+    charset: UTF-8
+
+http:
+  ssl: true
+
+# swagger
+swagger:
+  title: dashboard
+  description: dashboard api
+  version: 1.0-SNAPSHOT
+  ui-config.json-editor: true
+  ui-config.show-request-headers: true
+  default-device-id: d728201d-788e-45c9-bc81-254cf78e8df9
+  globalOperationParameters[0]:
+    name: device-id
+    description: 设备ID
+    modelRef: String
+    parameterType: header
+    required: false
+  docket:
+    base:
+      title: base
+      base-package: com.bigonelab.dashboard.controller
+    login:
+      title: 系统设置
+      base-package: com.bigonelab.dashboard.controller.system
+    index:
+      title: 我的首页
+      base-package: com.bigonelab.dashboard.controller.index
+    ec:
+      title: EC
+      base-package: com.bigonelab.dashboard.controller.ec
+    red:
+      title: 小红书
+      base-package: com.bigonelab.dashboard.controller.red
+    job:
+      title: 招聘
+      base-package: com.bigonelab.dashboard.controller.job
+    common:
+      title: 公共
+      base-package: com.bigonelab.dashboard.controller.common
+    operators:
+      title: 运营商
+      base-package: com.bigonelab.dashboard.controller.operators
+    meituan:
+      title: 美团
+      base-package: com.bigonelab.dashboard.controller.meituan
+    douyin:
+      title: 抖音
+      base-package: com.bigonelab.dashboard.controller.douyin
+    user:
+      title: 用户权限
+      base-package: com.bigonelab.dashboard.controller.user
+    beke:
+      title: 贝壳
+      base-package: com.bigonelab.dashboard.controller.beke
+    remind:
+      title: 消息提醒
+      base-package: com.bigonelab.dashboard.controller.remind
+    analysis_brand:
+      title: 消费品牌分析
+      base-package: com.bigonelab.dashboard.controller.analysis.brand
+    community:
+      title: 社区团购
+      base-package: com.bigonelab.dashboard.controller.community
+    bili:
+      title: B站
+      base-package: com.bigonelab.dashboard.controller.bili
+    synthesize_ec:
+      title: 百观消费洞察3.0
+      base-package: com.bigonelab.dashboard.controller.synthesize.ec
+    edis:
+      title: 百观消费股跟踪
+      base-package: com.bigonelab.dashboard.controller.edis
+    news:
+      title: 新闻舆情
+      base-package: com.bigonelab.dashboard.controller.news
+#actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+    health:
+      show-details: always
+
+dubbo:
+  scan:
+    base-packages: com.bigone.bolt.business.service
+  protocol:
+    name: dubbo
+    port: -1
+    payload: 52428800
+  cloud:
+    subscribed-services: ec-server,ec-service
+  consumer:
+    check: false
+    timeout: 120000
+    retries: 0
+
+#service server
+service:
+  api:
+    mail: /v1/api/email/rest-pwd
+    mail_template: /v1/api/{type}/mail
+
+#接口请求白名单
+white:
+  uri: /v1/api/login,/v1/api/check/send,/v1/api/forgot-pwd,/v1/api/authing-login,/v1/api/authing-callback,/v1/api/authing-check
+  dic: /**/*html*/**,/**/*pdf*/**,/**/*pdfjs*/**,/**/*plyr*/**,/**/*swagger*/**,/**/*api-docs*/**,/**/*images*/**,/**/*css*/**,/**/*js*/**
+  text: css,js,txt,xml,java,properties,sql
+  media: mp3,aac,avi,mp4,flv,rmvb,webm,ogg,mpeg4
+  pic: jpg,jpeg,png,gif,bmp,ico,raw
+  aic: rar,zip,jar,7-zip,tar,gzip,7z
+  office: docx,doc,xls,xlsx,ppt,pptx
+  device_uri: /**/*html*/**,/**/*swagger*/**,/**/*api-docs*/**,/**/*images*/**,/**/*css*/**,/**/*js*/**,/v1/api/authing-login,/v1/api/authing-callback,/v1/api/authing-check
+
+# authing配置
+authing:
+  userPoolId: 6188c9da5e08715eb75137ff
+  appId: 61b83a05cec6a1c8cd193c10
+  secret: 9856762105a4d59d564d5ea052487e78
+  redirectUri: /v1/api/authing-callback
+  host: https://dashboard.authing.cn

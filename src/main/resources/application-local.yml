@@ -1,0 +1,123 @@
+#spring
+#spring:
+#  profiles:
+#    active: local
+#  datasource:
+#    dynamic:
+#      primary: sediment
+#      strict: false
+#      datasource:
+#        sediment:
+#          driver-class-name: com.mysql.jdbc.Driver
+#          url: jdbc:mysql://bolt.mysql.bigonedev.com:3306/sediment?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai&useSSL=false
+#          username: db_dev_user
+#          password: XhOIxXurl4AZPkYK4PQR
+#          type: com.zaxxer.hikari.HikariDataSource
+#          hikari:
+#            pool-name: sediment-HikariCP
+#            auto-commit: true
+#            maximum-pool-size: 20
+#            idle-timeout: 60000
+#            connection-timeout: 60000
+#            validation-timeout: 3000
+#            max-lifetime: 60000
+#            connection-test-query: SELECT 1
+#        clickhouse:
+#          driver-class-name: ru.yandex.clickhouse.ClickHouseDriver
+#          url: jdbc:clickhouse://bolt.clickhouse.bigonedev.com:8123/ec
+#          username: ec_user
+#          password: okGTJqnsauSA2n4tqTNT
+#          hikari:
+#            pool-name: clickhouse-HikariCP
+#            auto-commit: true
+#            maximum-pool-size: 20
+#            idle-timeout: 60000
+#            connection-timeout: 60000
+#            validation-timeout: 3000
+#            max-lifetime: 60000
+#            connection-test-query: SELECT 1
+#  #redis
+#  redis:
+#    host: bolt.redis.bigonedev.com
+#    port: 6379
+#    password: EXR9RemFsEUrU7FB9mLd
+#    database: 3
+#    timeout: 10000
+#    expire: 84600
+#    lettuce:
+#      pool:
+#        max-active: 8
+#        max-wait: -1
+#        max-idle: 30
+#  # rabbitmq
+#  rabbitmq:
+#    enabled: false
+#    host: b-3efaba12-bc19-4ad8-8b91-06d9ed50c497.mq.cn-northwest-1.amazonaws.com.cn
+#    port: 5671
+#    virtual-host: bolt-test
+#    username: sediment
+#    password: wCnBre6u7CrApCnZ
+#    template:
+#      exchange: bolt-test
+#      routing-key-event: event
+#      routing-key-server: server
+#    ssl:
+#      enabled: true
+#    listener:
+#      simple:
+#        acknowledge-mode: manual
+#        retry:
+#          enabled: true
+#          max-attempts: 5
+#
+#
+##service server
+#service:
+#  enable: false
+#  host: http://localhost:8003/service
+#  api:
+#    mail: /v1/api/email/rest-pwd
+#    mail_template: /v1/api/{type}/mail
+#  code:
+#    expire: 30
+##???
+#white:
+#  limit_uri: /v1/api/ecv3/search,/v1/api/ecv2/brand/search,/v1/api/edis/search/keyword,/v1/api/analysis/brand/search
+#
+## mq:
+##   enabled: false
+##   endpoint: http://1820365186147884.mqrest.cn-beijing.aliyuncs.com
+##   instanceId: MQ_INST_1820365186147884_BXQNaXXy
+##   socketTimeout: 3000
+##   connectionTimeout: 3000
+##   accessKey: LTAI4GKV8azyzQuqK5XZ3cG3
+##   secret: L6g73S550y20eKO0IrCT4wrNxOTAZV
+##   topic: USER_ACTION
+##   groupId: GID_OFFLINE
+##   serverTag: server
+##   browserTag: browser
+##   eventTag: event
+##   offlineTag: offline
+#
+#local:
+#  server:
+#    #url: https://35ca-36-112-75-162.ngrok.io
+#    url: https://3fd0-36-112-75-162.ngrok.io
+#    # url: https://dev.sediment.bigonelab.com
+#
+## swagger
+#swagger:
+#  enabled: true
+#
+#sentry:
+#  dsn: https://e2450b2772fe48ecb863ecd25b74e4f4@dev.sentry.bigonelab.com/10
+#
+#  # news
+#data-source-rest:
+#  app-key: 'bt'
+#  app-security: 'UEJJ88932943JJFjjfdf'
+#  # host: 'http://127.0.0.1:12000'
+#  host: 'https://test.datasource.bigonedev.com'
+##??????
+#device:
+#  check: false
